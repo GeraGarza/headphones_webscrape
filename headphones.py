@@ -7,11 +7,11 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 import smtplib
-import creds
+# import creds
 
 chrome_options = Options()  
 chrome_options.add_argument("--headless") 
-driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver"),   chrome_options=chrome_options)  
+driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"),   chrome_options=chrome_options)  
 
 
 
@@ -27,7 +27,7 @@ def emailnew(content):
     
     sender_email = "geragarzadev@gmail.com"
     receiver_email = "josegarzadev@gmail.com"
-    password = creds.password
+    password = ""
     message = MIMEMultipart("alternative")
     message["Subject"] = "Headphones time"
     message["From"] = sender_email
