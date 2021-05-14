@@ -1,23 +1,22 @@
-import os  
-from selenium import webdriver  
-from selenium.webdriver.common.keys import Keys  
-from selenium.webdriver.chrome.options import Options  
+import os
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 import smtplib, ssl
 from email.mime.text import MIMEText
-from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 import smtplib
-# import creds
+import creds
 
-chrome_options = Options()  
-chrome_options.add_argument("--headless") 
-driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"),   chrome_options=chrome_options)  
-
-
+chrome_options = Options()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
 
 def get_headphones():
+    driver = webdriver.Chrome(executable_path=os.path.abspath("chromedriver.exe"),   chrome_options=chrome_options)  
     driver.get("https://electronics.sony.com/audio/headphones/headband/p/wh1000xm4-w")
     coming_soon_ele = driver.find_elements_by_xpath("//*[contains(text(), 'Coming Soon')]")
+    driver.close()
     return "They're out now!" if len(coming_soon_ele)>0 else ""
 
 
@@ -27,7 +26,7 @@ def emailnew(content):
     
     sender_email = "geragarzadev@gmail.com"
     receiver_email = "josegarzadev@gmail.com"
-    password = ""
+    password = creds.password
     message = MIMEMultipart("alternative")
     message["Subject"] = "Headphones time"
     message["From"] = sender_email
